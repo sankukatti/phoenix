@@ -1,33 +1,37 @@
 <div class="home-page" ng-controller="HomeController">
-  <h2 class="home-branding">
-    INSURE
-  </h2>
 
-  <div ng-show="step === 0">
-    <div class="get-name-and-age">
+  <div ng-show="step === 0" class="top-padding-20">
+    <div class="get-name-and-age font-size-large">
       Hi.. I am Alex.
-      What is your name? <input type="text" ng-model="userName" placeholder="Your name?"/><br/>
-      What is your age? <input type="text" ng-model="dob" placeholder="28?" required/>
+      What is your name? <br/><br/>
+      <input type="text" ng-model="userName" placeholder="Your name"/><br/>
+      <br/>
+      <br/>
+      What is your age? <br/><br/>
+      <input type="number" ng-model="dob" placeholder="28" min="18" max="99" required/>
     </div>
 
-    <div class="next-button" ng-show="userName.length > 0 && dob.length >= 2">
+    <div class="next-button" ng-show="userName.length > 0 && dob > 0">
         <button ng-click="getInsuForm(1)">
           What next?
         </button>
     </div>
   </div>
 
-  <div ng-show="step === 1">
+  <div ng-show="step === 1" class="top-padding-20">
     <div>
-      <p>Hi {{userName}}. <br/>I am 27. I am working in the insurance domain for 5 years now.<br/>
-        {{userName}}, lets together figure out an efficient insurance plan you!</p>
-
       <p>
-        If you dont mind, what is your email ID. I may need it to contact you. <input type="text" ng-model="email" placeholder="XXX@YYY.com"/>
+        <span class="font-size-large">Hi {{userName}}.</span> <br/>
+        <span class="font-size-medium">I am 27. I am working in the insurance domain for 5 years now.<br/>
+          {{userName}}, lets together figure out an efficient insurance plan you!</span></p>
+
+      <p class="top-padding-20 font-size-small">
+        If you dont mind, may I know your email ID. I may need it to contact you. <br/>
+        <input class="top-padding-20" type="text" ng-model="email" placeholder="XXX@YYY.com"/>
       </p>
     </div>
 
-    <div class="next-button" ng-show="email.length > 4">
+    <div class="next-button" ng-show="validateEmail()">
       <p>
         Lets figure out what type of insurance you need.
       </p>
@@ -39,26 +43,29 @@
 
   <div ng-show="step === 2">
     <div class="get-what-insu">
-      <p>What insurance are you looking for <p/>
+      <p class="font-size-large">What insurance are you looking for?<p/>
 
       <ul class="list insuTypesList">
-        <li ng-repeat="insuranceType in insuranceTypes" ng-click="selectInsuType(insuranceType)">
+        <li ng-repeat="insuranceType in insuranceTypes" class="font-size-medium" ng-click="selectInsuType(insuranceType)" ng-class="{selected: insuSelected.name === insuranceType.name}">
           {{insuranceType.name}}
           <img ng-src="{{insuranceType.img}}"/>
+          {{insuranceType.desc}}
         </li>
       </ul>
       <br/>
-      <p>You to to buy it for</p>
+      <div ng-show="insuSelected.name === insuranceTypes[0].name">
+        <p class="font-size-medium">You want to buy it for?</p>
 
-      <ul class="list insuTypesList">
-        <li ng-repeat="insuranceForItem in insuranceForList" ng-click="selectInsuType(insuranceForItem)">
-          {{insuranceForItem.name}}
-          <img ng-src="{{insuranceForItem.img}}">
-        </li>
-      </ul>
+        <ul class="list insuTypesList">
+          <li ng-repeat="insuranceForItem in insuranceForList" ng-click="selectInsuFor(insuranceForItem)" ng-class="{selected: insuFor.name === insuranceForItem.name}" class="font-size-medium">
+            {{insuranceForItem.name}}
+            <img ng-src="{{insuranceForItem.img}}" class="top-padding-20">
+          </li>
+        </ul>
+      </div>
 
     </div>
-    <div class="next-button">
+    <div class="next-button" ng-show="insuSelected.name.length > 0">
       <button ng-click="getInsuForm(3)">
         Quote?
       </button>
@@ -66,18 +73,57 @@
   </div>
 
   <div ng-if="step === 3">
-    <ul ng-show="insuSelected === insuranceTypes[0]">
-      <li ng-repeat="medInsuPlan in medInsuPlans ">
+    <ul ng-show="insuSelected === insuranceTypes[0]" class="insurance-plans">
+      <li ng-repeat="medInsuPlan in medInsuPlans" class="insurance-plan">
         {{medInsuPlan}}
       </li>
     </ul>
 
-    <ul ng-show="insuSelected === insuranceTypes[1]">
-      <li ng-repeat="medInsuPlan in medInsuPlans ">
-        {{medInsuPlan}}
+    <ul ng-show="insuSelected === insuranceTypes[1]" class="insurance-plans">
+      <li ng-repeat="lifeInsuPlan in lifeInsuPlans" class="insurance-plan">
+        <div class="med-plan">
+          <p>{{lifeInsuPlan.planName}}</p>
+          <p>Insurance amt: {{lifeInsuPlan.sumInsured}}</p>
+          <p>Premium: {{lifeInsuPlan.premium}}</p>
+          <hr/>
+          <p>Facilities</p>
+          <ul>
+            <li ng-repeat="facility in lifeInsuPlan.facilities ">
+              {{facility}}
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
+
+    <button ng-show="step > 0" ng-click="goBack()">Back</button>
   </div>
 
-  <button ng-show="step > 0" ng-click="goBack()">Back</button>
+  <div ng-if="step === 4">
+    <ul ng-show="insuSelected === insuranceTypes[0]" class="insurance-plans">
+      <li ng-repeat="medInsuPlan in medInsuPlans" class="insurance-plan">
+        {{medInsuPlan}}
+      </li>
+    </ul>
+
+    <ul ng-show="insuSelected === insuranceTypes[1]" class="insurance-plans">
+      <li ng-repeat="lifeInsuPlan in lifeInsuPlans" class="insurance-plan">
+        <div class="med-plan">
+          <p>{{lifeInsuPlan.planName}}</p>
+          <p>Insurance amt: {{lifeInsuPlan.sumInsured}}</p>
+          <p>Premium: {{lifeInsuPlan.premium}}</p>
+          <hr/>
+          <p>Facilities</p>
+          <ul>
+            <li ng-repeat="facility in lifeInsuPlan.facilities ">
+              {{facility}}
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <button ng-show="step > 0" ng-click="goBack()">Back</button>
+  </div>
+
 </div>
