@@ -1,0 +1,56 @@
+.home-page {
+    .home-branding {
+        text-align: center;
+    }
+
+    .get-name-and-age {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .get-what-insu {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .next-button {
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+input, select {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    background-color: transparent;
+    border-color: #cccccc;
+}
+
+p {
+    text-align: center;
+}
+
+.list {
+    list-style: none;
+
+    li {
+        display: inline-block;
+    }
+}
+
+.insuTypesList {
+    li {
+        padding: 10px;
+        width: 200px;
+        height: 150px;
+        text-align: center;
+        cursor: pointer;
+
+        img {
+            width: 150px;
+            display: block;
+        }
+    }
+}

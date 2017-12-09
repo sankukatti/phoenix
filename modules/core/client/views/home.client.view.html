@@ -1,84 +1,83 @@
-<section>
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="MEAN.JS" class="img-responsive text-center" src="/modules/core/client/img/brand/logo.png" />
-      </div>
+<div class="home-page" ng-controller="HomeController">
+  <h2 class="home-branding">
+    INSURE
+  </h2>
+
+  <div ng-show="step === 0">
+    <div class="get-name-and-age">
+      Hi.. I am Alex.
+      What is your name? <input type="text" ng-model="userName" placeholder="Your name?"/><br/>
+      What is your age? <input type="text" ng-model="dob" placeholder="28?" required/>
     </div>
-    <br>
-    <div class="row">
-      <p class="lead">
-        Open-Source Full-Stack Solution For MEAN Applications
-      </p>
-    </div>
-    <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
-      </p>
+
+    <div class="next-button" ng-show="userName.length > 0 && dob.length >= 2">
+        <button ng-click="getInsuForm(1)">
+          What next?
+        </button>
     </div>
   </div>
-  <div>
-    <h2>Congrats! You've configured and run the sample application.</h2>
-    <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-    <p>This sample application tracks users and articles.</p>
-    <ul>
-      <li>
-        Click
-        <em>Sign Up</em> to get started.
+
+  <div ng-show="step === 1">
+    <div>
+      <p>Hi {{userName}}. <br/>I am 27. I am working in the insurance domain for 5 years now.<br/>
+        {{userName}}, lets together figure out an efficient insurance plan you!</p>
+
+      <p>
+        If you dont mind, what is your email ID. I may need it to contact you. <input type="text" ng-model="email" placeholder="XXX@YYY.com"/>
+      </p>
+    </div>
+
+    <div class="next-button" ng-show="email.length > 4">
+      <p>
+        Lets figure out what type of insurance you need.
+      </p>
+      <button ng-click="getInsuForm(2)">
+        Ok!
+      </button>
+    </div>
+  </div>
+
+  <div ng-show="step === 2">
+    <div class="get-what-insu">
+      <p>What insurance are you looking for <p/>
+
+      <ul class="list insuTypesList">
+        <li ng-repeat="insuranceType in insuranceTypes" ng-click="selectInsuType(insuranceType)">
+          {{insuranceType.name}}
+          <img ng-src="{{insuranceType.img}}"/>
+        </li>
+      </ul>
+      <br/>
+      <p>You to to buy it for</p>
+
+      <ul class="list insuTypesList">
+        <li ng-repeat="insuranceForItem in insuranceForList" ng-click="selectInsuType(insuranceForItem)">
+          {{insuranceForItem.name}}
+          <img ng-src="{{insuranceForItem.img}}">
+        </li>
+      </ul>
+
+    </div>
+    <div class="next-button">
+      <button ng-click="getInsuForm(3)">
+        Quote?
+      </button>
+    </div>
+  </div>
+
+  <div ng-if="step === 3">
+    <ul ng-show="insuSelected === insuranceTypes[0]">
+      <li ng-repeat="medInsuPlan in medInsuPlans ">
+        {{medInsuPlan}}
       </li>
-      <li>
-        Configure your app to work with your social accounts, by editing the
-        <em>/config/env/*.js</em> files.
-      </li>
-      <li>
-        Edit your users module.
-      </li>
-      <li>
-        Add new CRUD modules.
-      </li>
-      <li>
-        Have fun...
+    </ul>
+
+    <ul ng-show="insuSelected === insuranceTypes[1]">
+      <li ng-repeat="medInsuPlan in medInsuPlans ">
+        {{medInsuPlan}}
       </li>
     </ul>
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <h2><strong>M</strong>ongoDB</h2>
-      <p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a NoSQL database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>E</strong>xpress</h2>
-      <p><a target="_blank" href="http://expressjs.com/"> Express</a> is a NodeJS server-side application web framework. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>A</strong>ngularJS</h2>
-      <p><a target="_blank" href="http://angularjs.org/">AngularJS</a> is client-side web application framework. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>N</strong>ode.js</h2>
-      <p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a JavaScript run-time, popular for being a web server platform. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
-    </div>
-  </div>
-  <div class="well">
-    <h2>MEAN.JS Documentation</h2>
-    <p>
-      Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
-      <ul>
-        <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
-        </li>
-        <!-- <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
-				</li> -->
-        <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
-        </li>
-        <li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
-        </li>
-      </ul>
-    </p>
-  </div>
-  <br>Enjoy &amp; Keep Us Updated,
-  <br>The MEAN.JS Team.
-</section>
+
+  <button ng-show="step > 0" ng-click="goBack()">Back</button>
+</div>
