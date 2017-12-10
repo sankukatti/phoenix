@@ -30,32 +30,88 @@
       }
     ];
 
+    var currIndex = 0;
+    $scope.slides = [
+      {
+        image: 'modules/core/client/img/insuTypes/life-insurance-banner-1.png',
+        id: currIndex++
+      },
+      {
+        image: 'modules/core/client/img/insuTypes/healthInsu.jpg',
+        id: currIndex++
+      },
+      {
+        image: 'modules/core/client/img/insuTypes/lifInsuImgBan.jpg',
+        id: currIndex++
+      }
+    ];
+
     $scope.age = '';
 
-    $scope.step = 0;
+    $scope.step = -1;
 
     $scope.getInsuForm = getInsuForm;
     $scope.goBack = goBack;
     $scope.selectInsuType = selectInsuType;
     $scope.selectInsuFor = selectInsuFor;
     $scope.validateEmail = validateEmail;
+    $scope.selectGender = selectGender;
 
     $scope.medInsuPlans = [
       {
-        "planName" : "Med Plus",
-        "sumInsured" : "50 Lakh",
-        "hospitalRoomEligibility" : "Upto 3K/Day",
-        "AmbulanceCharges":"1.5K/event",
-        "BonusOnClaim":"1.8 Lacs SI added/year"
+        planName: "Med Plus",
+        sumInsured: "50 L",
+        hospitalRoomEligibility: "Upto 3K/Day",
+        AmbulanceCharges: "1.5K/event",
+        BonusOnClaim: "1.8 Lacs SI added/year",
+        type: "Individual",
+        premium: "Rs 15000/Year"
       },
       {
-        "planName" : "Med Plus",
-        "sumInsured" : "50 Lakh",
-        "hospitalRoomEligibility" : "Upto 3K/Day",
-        "AmbulanceCharges":"1.5K/event",
-        "BonusOnClaim":"1.8 Lacs SI added/year"
+        planName : "Med Gold",
+        sumInsured : "75 L",
+        hospitalRoomEligibility : "Upto 5K/Day",
+        AmbulanceCharges :"2K/event",
+        BonusOnClaim :"2.5 Lacs SI added/year",
+        type: "Individual",
+        premium:"Rs 25,000/Year"
+      },
+      {
+        planName : "Med Diamond",
+        sumInsured : "1 Cr",
+        hospitalRoomEligibility : "Upto 7K/Day",
+        AmbulanceCharges :"2K/event",
+        BonusOnClaim :"5 Lacs SI added/year",
+        type: "Individual",
+        premium: "Rs 30,000/Year"
+      },
+      {
+        planName : "Med Family Plus",
+        sumInsured : "50 L",
+        hospitalRoomEligibility : "Upto 3K/Day",
+        AmbulanceCharges : "1.5K/event",
+        BonusOnClaim: "1.8 Lacs SI added/year",
+        type: "Family",
+        premium:"Rs 18,000/Year"
+      },
+      {
+        planName : "Med Family Gold",
+        sumInsured : "75 L",
+        hospitalRoomEligibility : "Upto 5K/Day",
+        AmbulanceCharges :"2K/event",
+        BonusOnClaim :"2.5 Lacs SI added/year",
+        type:"Family",
+        premium : "Rs 28,000/Year"
+      },
+      {
+        planName : "Med Family Diamond",
+        sumInsured : "1 Cr",
+        hospitalRoomEligibility : "Upto 7K/Day",
+        AmbulanceCharges :"2K/event",
+        BonusOnClaim :"5 Lacs SI added/year",
+        type : "Family",
+        premium: "Rs 35,000/Year"
       }
-
     ];
     $scope.lifeInsuPlans = [
       {
@@ -111,5 +167,21 @@
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test($scope.email);
     }
+
+    function selectGender(gender) {
+      console.log(gender);
+      $scope.genderSelected = gender;
+    }
+
+    $scope.additem = 1;
+    setInterval(function(){
+      console.log($scope.additem);
+      if($scope.additem == 4) {
+        $scope.additem = 1;
+      } else {
+        $scope.additem = $scope.additem + 1;
+      }
+      $scope.$apply();
+    }, 3000)
   }
 }());

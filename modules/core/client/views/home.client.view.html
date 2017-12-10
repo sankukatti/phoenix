@@ -1,4 +1,17 @@
-<div class="home-page" ng-controller="HomeController">
+<div class="home-page" ng-controller="HomeController" ng-class="{flowerback : genderSelected === 'f'}">
+
+  <div ng-show="step === -1" style="text-align: center">
+    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+    <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+      <img ng-src="{{slide.image}}" style="margin:auto;height: 300px;">
+      <div class="carousel-caption">
+
+      </div>
+    </div>
+
+  </div>
+    <button class="take-tour-button" ng-click="getInsuForm(0)">Take a tour</button>
+  </div>
 
   <div ng-show="step === 0" class="top-padding-20">
     <div class="get-name-and-age font-size-large">
@@ -9,6 +22,10 @@
       <br/>
       What is your age? <br/><br/>
       <input type="number" ng-model="dob" placeholder="28" min="18" max="99" required/>
+       and I am <img class="gender-select-icons" ng-class="{genderselected: genderSelected === 'm'}" src="modules/core/client/img/insuTypes/male.png" ng-click="selectGender('m')"/>
+
+      <img class="gender-select-icons" src="modules/core/client/img/insuTypes/female.png" ng-class="{genderselected: genderSelected === 'f'}" ng-click="selectGender('f')"/>
+
     </div>
 
     <div class="next-button" ng-show="userName.length > 0 && dob > 0">
@@ -73,18 +90,27 @@
   </div>
 
   <div ng-if="step === 3">
+
+    <p class="top-padding-20 font-size-large">{{insuSelected.name}} Plans</p>
+
     <ul ng-show="insuSelected === insuranceTypes[0]" class="insurance-plans">
-      <li ng-repeat="medInsuPlan in medInsuPlans" class="insurance-plan">
-        {{medInsuPlan}}
+      <li ng-repeat="medInsuPlan in medInsuPlans" class="insurance-plan" ng-click="getInsuForm(4)">
+        <div class="med-plan">
+          <p class="font-size-large insu-title">{{medInsuPlan.planName}}</p>
+          <p class="font-size-small">Insurance amt: {{medInsuPlan.sumInsured}}</p>
+          <p>hospitalRoomEligibility : {{medInsuPlan.hospitalRoomEligibility}}</p>
+          <p>AmbulanceCharges : {{medInsuPlan.AmbulanceCharges}} </p>
+          <p>BonusOnClaim : {{medInsuPlan.BonusOnClaim}}</p>
+        </div>
       </li>
     </ul>
 
     <ul ng-show="insuSelected === insuranceTypes[1]" class="insurance-plans">
-      <li ng-repeat="lifeInsuPlan in lifeInsuPlans" class="insurance-plan">
+      <li ng-repeat="lifeInsuPlan in lifeInsuPlans" class="insurance-plan" ng-click="getInsuForm(4)">
         <div class="med-plan">
-          <p>{{lifeInsuPlan.planName}}</p>
-          <p>Insurance amt: {{lifeInsuPlan.sumInsured}}</p>
-          <p>Premium: {{lifeInsuPlan.premium}}</p>
+          <p class="font-size-large insu-title">{{lifeInsuPlan.planName}}</p>
+          <p class="font-size-medium">Insurance amt: {{lifeInsuPlan.sumInsured}}</p>
+          <p class="font-size-small">Premium: {{lifeInsuPlan.premium}}</p>
           <hr/>
           <p>Facilities</p>
           <ul>
@@ -95,35 +121,42 @@
         </div>
       </li>
     </ul>
-
-    <button ng-show="step > 0" ng-click="goBack()">Back</button>
   </div>
 
-  <div ng-if="step === 4">
-    <ul ng-show="insuSelected === insuranceTypes[0]" class="insurance-plans">
-      <li ng-repeat="medInsuPlan in medInsuPlans" class="insurance-plan">
-        {{medInsuPlan}}
-      </li>
-    </ul>
-
-    <ul ng-show="insuSelected === insuranceTypes[1]" class="insurance-plans">
-      <li ng-repeat="lifeInsuPlan in lifeInsuPlans" class="insurance-plan">
-        <div class="med-plan">
-          <p>{{lifeInsuPlan.planName}}</p>
-          <p>Insurance amt: {{lifeInsuPlan.sumInsured}}</p>
-          <p>Premium: {{lifeInsuPlan.premium}}</p>
-          <hr/>
-          <p>Facilities</p>
-          <ul>
-            <li ng-repeat="facility in lifeInsuPlan.facilities ">
-              {{facility}}
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
-    <button ng-show="step > 0" ng-click="goBack()">Back</button>
+  <br/>
+  <button ng-show="step >= 0" ng-click="goBack()">Back</button>
+  <div ng-show="step === 4" class="top-padding-20">
+    <div class="get-name-and-age font-size-large">
+      I am happy that we were able to find a right insurance for you.
+      <br/><br/>
+      You can proceed <a href="https://www.hdfclife.com/term-insurance-plans/click-2-protect-plus-3d">HERE</a> to purchase this insurance.
+      <br/><br/>
+      OR
+      <br/><br/>
+      We will be contacting you soon.
+      <br/>
+      Thank you {{userName}}.
+    </div>
   </div>
 
+  <div ng-if="step > 10">
+  <div class="adds left-quotes-top" ng-show="additem == 1">
+    You don’t buy life insurance
+    because you are going to die,
+    but because those you love
+    are going to live.
+  </div>
+
+  <div class="adds left-quotes-bottom" ng-show="additem == 2">
+    Are you ready for tomorrow ?
+  </div>
+
+  <div class="adds right-quotes-bottom" ng-show="additem == 3">
+    We can help you in fulfilling your responsibilty towards your family
+  </div>
+
+  <div class="adds right-quotes-top" ng-show="additem == 4">
+    Add 4
+  </div>
+  </div>
 </div>

@@ -1,15 +1,15 @@
 body {
-    background-color: #00b3ee;
-    color: white;
+    /*background-color: #00b3ee;*/
+    color: #00b3ee;
     border-color: #d43f3a;
 }
 
 button {
-    background-color: white;
+    background-color: #00b3ee;
     border: none;
     padding: 10px;
     font-size: 20px;
-    color: #00b3ee;
+    color: white;
     font-weight: bold;
 }
 
@@ -60,7 +60,7 @@ input, select {
     text-align: center;
     background-color: transparent;
     border-color: #d43f3a;
-    color: white;
+    color: #3c763d;
 }
 
 p {
@@ -83,7 +83,7 @@ p {
         height: 300px;
         text-align: center;
         cursor: pointer;
-        box-shadow: 0px 0px 0px 1px #d43f3a;
+        box-shadow: 0px 0px 0px 1px #00b3ee;
 
         img {
             width: 150px;
@@ -92,7 +92,7 @@ p {
         }
     }
     .selected {
-        box-shadow: 0px 0px 0px 2px white;
+        box-shadow: 0px 0px 0px 2px #00b3ee;
     }
 }
 
@@ -103,12 +103,71 @@ p {
         float: left;
         margin: 20px 20px;
         border: 1px solid;
-        height: 350px;
+        height: 390px;
         padding: 20px;
+        background-color: white;
+        color: #00b3ee;
 
         .med-plan {
             width: 220px;
             display: inline-block;
         }
     }
+}
+
+.gender-select-icons {
+    width: 30px;
+}
+
+.genderselected {
+    width: 50px;
+}
+
+.gender-female-flowers {
+}
+
+.flowerback {
+    /*background-image: url("/modules/core/client/img/insuTypes/flower.png");
+    background-repeat: no-repeat;
+    background-position: center;*/
+}
+
+.adds {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    color: #3c763d;
+    font-size: 14px;
+}
+
+.left-quotes-top {
+    top: 100px;
+    left: 20px;
+}
+
+.left-quotes-top {
+    bottom: 20px;
+    left: 20px;
+}
+
+.right-quotes-top {
+    top: 100px;
+    right: 20px;
+}
+
+.right-quotes-bottom {
+    bottom: 20px;
+    right: 20px;
+}
+
+.take-tour-button {
+    margin: 40px auto;
+    width: 200px;
+}
+
+.insu-title {
+    cursor: pointer;
+    padding-bottom: 2px;
+    margin-bottom: 22px;
+    border-bottom: 1px #d43f3a solid;
 }
